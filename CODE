@@ -1,0 +1,91 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class ToDoList {
+    static Scanner userInput = new Scanner(System.in);
+    static ArrayList<String> taskList = new ArrayList<>();
+
+    public static void main(String[] args) {
+        System.out.println("Welcome to the ToDo List App!");
+
+        while (true) {
+            System.out.println("\nChoose an option:");
+            System.out.println("1. Add a task");
+            System.out.println("2. View tasks");
+            System.out.println("3. Edit a task");
+            System.out.println("4. Remove a task");
+            System.out.println("5. Exit");
+
+            int choice = userInput.nextInt();
+            userInput.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    addTask();
+                    break;
+                case 2:
+                    viewTasks();
+                    break;
+                case 3:
+                    editTask();
+                    break;
+                case 4:
+                    removeTask();
+                    break;
+                case 5:
+                    System.out.println("Goodbye!");
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    private static void addTask() {
+        System.out.print("Enter the task: ");
+        String task = userInput.nextLine();
+        taskList.add(task);
+        System.out.println("Task added successfully!");
+    }
+
+    private static void viewTasks() {
+        if (taskList.isEmpty()) {
+            System.out.println("No tasks found.");
+        } else {
+            System.out.println("Tasks:");
+            for (int i = 0; i < taskList.size(); i++) {
+                System.out.println((i + 1) + ". " + taskList.get(i));
+            }
+        }
+    }
+
+    private static void editTask() {
+        viewTasks();
+        System.out.print("Enter the task number to edit: ");
+        int taskNumber = userInput.nextInt();
+        userInput.nextLine(); // Consume newline
+
+        if (taskNumber >= 1 && taskNumber <= taskList.size()) {
+            System.out.print("Enter the updated task: ");
+            String updatedTask = userInput.nextLine();
+            taskList.set(taskNumber - 1, updatedTask);
+            System.out.println("Task updated successfully!");
+        } else {
+            System.out.println("Invalid task number.");
+        }
+    }
+
+    private static void removeTask() {
+        viewTasks();
+        System.out.print("Enter the task number to remove: ");
+        int taskNumber = userInput.nextInt();
+        userInput.nextLine(); // Consume newline
+
+        if (taskNumber >= 1 && taskNumber <= taskList.size()) {
+            taskList.remove(taskNumber - 1);
+            System.out.println("Task removed successfully!");
+        } else {
+            System.out.println("Invalid task number.");
+        }
+    }
+}
